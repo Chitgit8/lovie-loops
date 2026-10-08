@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ScrunchieLand — velvet-soft, snag-free scrunchies with kawaii faces. Cute scrunchies for cute hair." />
-  <title>ScrunchieLand 🎀 — Cute Scrunchies for Cute Hair</title>
+  <meta name="description" content="Lovie Loops — twirl &amp; tie. Velvet-soft, snag-free scrunchies with kawaii faces." />
+  <title>Lovie Loops 🎀 — twirl &amp; tie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -89,6 +89,7 @@
       margin-bottom: 16px;
     }
     .hero-text p { font-size: 1.15rem; color: var(--text-soft); margin-bottom: 24px; }
+    .tagline { font-family: 'Pacifico', cursive; font-style: normal; color: var(--pink); font-size: 1.3rem; }
     .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
     .chip {
       background: #fff;
@@ -287,7 +288,7 @@
 <body>
 
   <nav>
-    <span class="logo">ScrunchieLand 🎀</span>
+    <span class="logo">Lovie Loops 🎀</span>
     <ul class="nav-links">
       <li><a href="#shop">Shop</a></li>
       <li><a href="#about">About</a></li>
@@ -300,8 +301,8 @@
 
   <header class="hero">
     <div class="hero-text">
-      <h1>Cute Scrunchies for Cute Hair 💕</h1>
-      <p>Velvet-soft, snag-free, and dangerously adorable. Your ponytail called — it wants an upgrade.</p>
+      <h1>Lovie Loops 💕</h1>
+      <p><em class="tagline">twirl &amp; tie</em> — velvet-soft, snag-free, and dangerously adorable. Your ponytail called — it wants an upgrade.</p>
       <div class="chips">
         <span class="chip">🌸 No dents</span>
         <span class="chip">☁️ Velvet soft</span>
@@ -314,7 +315,69 @@
       <span class="orbit o1">🎀</span>
       <span class="orbit o2">✨</span>
       <span class="orbit o3">💗</span>
-      <div class="hero-art" id="hero-art"></div>
+      <div class="hero-art">
+        <!-- Lovie the mascot: original Ghibli-style girl with scrunchie bow and frock -->
+        <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cute girl wearing a scrunchie bow and a pink frock">
+          <!-- back hair -->
+          <ellipse cx="120" cy="98" rx="62" ry="80" fill="#6b4a3a"/>
+          <path d="M 58 98 Q 60 190 95 205 L 95 175 Q 75 140 72 92 Z" fill="#6b4a3a"/>
+          <path d="M 182 98 Q 180 190 145 205 L 145 175 Q 165 140 168 92 Z" fill="#6b4a3a"/>
+          <!-- face -->
+          <ellipse cx="120" cy="112" rx="43" ry="49" fill="#ffe9d2"/>
+          <!-- bangs -->
+          <path d="M 77 92 C 90 112 150 112 163 92 C 152 56 88 56 77 92 Z" fill="#6b4a3a"/>
+          <!-- brows -->
+          <path d="M 94 105 Q 103 101 112 105" fill="none" stroke="#6b4a3a" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 128 105 Q 137 101 146 105" fill="none" stroke="#6b4a3a" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- eyes -->
+          <ellipse cx="103" cy="114" rx="7" ry="9.5" fill="#3b2a22"/>
+          <ellipse cx="137" cy="114" rx="7" ry="9.5" fill="#3b2a22"/>
+          <circle cx="105.5" cy="110" r="2.6" fill="#fff"/>
+          <circle cx="139.5" cy="110" r="2.6" fill="#fff"/>
+          <!-- blush -->
+          <ellipse cx="87" cy="130" rx="8.5" ry="4.8" fill="#ffb3c6" opacity="0.75"/>
+          <ellipse cx="153" cy="130" rx="8.5" ry="4.8" fill="#ffb3c6" opacity="0.75"/>
+          <!-- mouth -->
+          <path d="M 113 136 Q 120 142 127 136" fill="none" stroke="#c25a6e" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- scrunchie bow -->
+          <g>
+            <ellipse cx="93" cy="26" rx="21" ry="13" fill="#ff6fa5" stroke="#f04f8c" stroke-width="2.5" transform="rotate(-24 93 26)"/>
+            <ellipse cx="147" cy="26" rx="21" ry="13" fill="#ff6fa5" stroke="#f04f8c" stroke-width="2.5" transform="rotate(24 147 26)"/>
+            <path d="M 120 24 Q 112 46 104 56" fill="none" stroke="#f04f8c" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 120 24 Q 128 46 136 56" fill="none" stroke="#f04f8c" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="120" cy="28" r="8" fill="#f04f8c"/>
+          </g>
+          <!-- dress -->
+          <path d="M 97 152 Q 120 143 143 152 L 157 204 Q 120 220 83 204 Z" fill="#ff9ec3" stroke="#f04f8c" stroke-width="2"/>
+          <!-- sleeves -->
+          <ellipse cx="79" cy="168" rx="17" ry="13" fill="#ffb6d5" stroke="#f04f8c" stroke-width="2"/>
+          <ellipse cx="161" cy="168" rx="17" ry="13" fill="#ffb6d5" stroke="#f04f8c" stroke-width="2"/>
+          <!-- arms -->
+          <ellipse cx="80" cy="192" rx="8" ry="15" fill="#ffe9d2" stroke="#e8c4a8" stroke-width="2" transform="rotate(8 80 192)"/>
+          <ellipse cx="160" cy="192" rx="8" ry="15" fill="#ffe9d2" stroke="#e8c4a8" stroke-width="2" transform="rotate(-8 160 192)"/>
+          <circle cx="81" cy="209" r="6.5" fill="#ffe9d2"/>
+          <circle cx="159" cy="209" r="6.5" fill="#ffe9d2"/>
+          <!-- collar -->
+          <path d="M 107 150 Q 120 159 133 150 L 120 164 Z" fill="#ffffff"/>
+          <!-- polka dots -->
+          <circle cx="105" cy="175" r="3" fill="#ffffff" opacity="0.6"/>
+          <circle cx="135" cy="175" r="3" fill="#ffffff" opacity="0.6"/>
+          <circle cx="120" cy="190" r="3" fill="#ffffff" opacity="0.6"/>
+          <circle cx="100" cy="196" r="3" fill="#ffffff" opacity="0.6"/>
+          <circle cx="140" cy="196" r="3" fill="#ffffff" opacity="0.6"/>
+          <!-- hem ruffle -->
+          <path d="M 83 204 Q 101 218 120 204 Q 139 218 157 204 Q 150 214 120 220 Q 90 214 83 204 Z" fill="#ff8ab8"/>
+          <!-- legs -->
+          <ellipse cx="106" cy="233" rx="7" ry="12" fill="#ffe9d2" stroke="#e8c4a8" stroke-width="2"/>
+          <ellipse cx="134" cy="233" rx="7" ry="12" fill="#ffe9d2" stroke="#e8c4a8" stroke-width="2"/>
+          <!-- socks -->
+          <rect x="99" y="242" width="14" height="8" rx="4" fill="#ffffff" stroke="#e8d8e2" stroke-width="1.5"/>
+          <rect x="127" y="242" width="14" height="8" rx="4" fill="#ffffff" stroke="#e8d8e2" stroke-width="1.5"/>
+          <!-- shoes -->
+          <ellipse cx="101" cy="256" rx="13" ry="7" fill="#f04f8c"/>
+          <ellipse cx="139" cy="256" rx="13" ry="7" fill="#f04f8c"/>
+        </svg>
+      </div>
     </div>
   </header>
 
@@ -384,15 +447,15 @@
   </main>
 
   <footer>
-    <span class="logo">ScrunchieLand 🎀</span>
-    <p>Cute scrunchies for cute hair.</p>
+    <span class="logo">Lovie Loops 🎀</span>
+    <p>twirl &amp; tie</p>
     <div class="links">
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
       <a href="#reviews">Reviews</a>
       <a href="mailto:hello@scrunchieland.example">hello@scrunchieland.example</a>
     </div>
-    <small>© 2026 ScrunchieLand · Made with 💕 and elastic · Demo site</small>
+    <small>© 2026 Lovie Loops · Made with 💕 and elastic · Demo site</small>
   </footer>
 
   <script src="js/shared.js"></script>
@@ -455,8 +518,6 @@
     const ALL_ITEMS = [...scrunchies];
 
     /* ---------- Render ---------- */
-
-    document.getElementById('hero-art').innerHTML = scrunchieSVG(scrunchies[0], 0);
 
     const shopGrid = document.getElementById('shop-grid');
     scrunchies.forEach((s, i) => {

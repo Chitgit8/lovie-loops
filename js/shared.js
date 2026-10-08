@@ -1,4 +1,4 @@
-/* ScrunchieLand shared runtime: cart, orders, chat widget, floating hearts.
+/* Lovie Loops shared runtime: cart, orders, chat widget, floating hearts.
    Load on every page: <script src="js/shared.js"></script> */
 (function () {
   'use strict';
@@ -6,7 +6,7 @@
   /* ---- Config ---- */
   const CONFIG = {
     whatsapp: '', /* TODO: real WhatsApp number, digits only with country code, e.g. '919876543210' */
-    shop: 'ScrunchieLand',
+    shop: 'Lovie Loops',
     keys: { cart: 'sl-cart', orders: 'sl-orders', profile: 'sl-profile', address: 'sl-address', chat: 'sl-chat' },
     shippingFreeOver: 25,
     shipping: 2,
