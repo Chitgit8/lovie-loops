@@ -7,13 +7,16 @@
   <title>Lovie Loops 🎀 — twirl &amp; tie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --pink: #ff6fa5;
       --pink-dark: #f04f8c;
       --pink-light: #ffb6d5;
       --pink-pale: #ffe3f0;
+      --purple: #a78bfa;
+      --peach: #ffc9a3;
+      --yellow: #ffd166;
       --cream: #fffafc;
       --text: #5c3a52;
       --text-soft: #a2718f;
@@ -23,14 +26,7 @@
 
     html { scroll-behavior: smooth; }
 
-    body {
-      font-family: 'Quicksand', 'Trebuchet MS', sans-serif;
-      background-color: var(--cream);
-      background-image: radial-gradient(#ffe9f4 1.5px, transparent 1.5px);
-      background-size: 28px 28px;
-      color: var(--text);
-      overflow-x: hidden;
-    }
+    /* animated gradient body lives in js/shared.js */
 
     /* ---------- Nav ---------- */
     nav {
@@ -43,31 +39,34 @@
       gap: 16px;
       flex-wrap: wrap;
       padding: 14px 24px;
-      background: rgba(255, 255, 255, .85);
+      background: rgba(255, 255, 255, .82);
       backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--pink-pale);
+      border-bottom: 3px solid var(--pink-dark);
     }
     .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink-dark); }
-    .nav-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
-    .nav-links a:hover { color: var(--pink); }
+    .logo small { font-family: 'Baloo 2', cursive; font-size: .75rem; font-weight: 800; display: block; color: var(--purple); letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-family: 'Baloo 2', cursive; transition: color .2s, transform .2s; display: inline-block; }
+    .nav-links a:hover { color: var(--pink); transform: rotate(-3deg) scale(1.08); }
     .cart {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: var(--pink-pale);
-      border: 2px solid var(--pink-light);
+      background: #fff;
+      border: 3px solid var(--pink-dark);
       color: var(--pink-dark);
-      font-weight: 700;
-      font-family: inherit;
+      font-weight: 800;
+      font-family: 'Baloo 2', cursive;
       font-size: 1rem;
       padding: 8px 16px;
       border-radius: 999px;
-      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 0 var(--pink-dark);
+      transition: transform .15s, box-shadow .15s;
     }
+    .cart:hover { transform: translateY(-2px) rotate(-2deg); box-shadow: 0 6px 0 var(--pink-dark); }
+    .cart:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--pink-dark); }
     #cart-count { display: inline-block; min-width: 22px; text-align: center; }
-    #cart-count.bump { animation: bump .3s; }
-    @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.6); } 100% { transform: scale(1); } }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -78,158 +77,233 @@
       flex-wrap: wrap;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 64px 24px;
+      padding: 64px 24px 48px;
+      position: relative;
     }
-    .hero-text { flex: 1 1 340px; }
+    .hero-text { flex: 1 1 340px; position: relative; z-index: 2; }
     .hero-text h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      line-height: 1.15;
-      color: var(--pink-dark);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 1.05;
+      color: #fff;
+      -webkit-text-stroke: 2.5px var(--pink-dark);
+      text-shadow: 5px 5px 0 rgba(240, 79, 140, .35);
+      transform: rotate(-2deg);
       margin-bottom: 16px;
     }
-    .hero-text p { font-size: 1.15rem; color: var(--text-soft); margin-bottom: 24px; }
-    .tagline { font-family: 'Pacifico', cursive; font-style: normal; color: var(--pink); font-size: 1.3rem; }
+    .hero-text h1 .grad {
+      background: linear-gradient(90deg, #ff6fa5, #a78bfa, #ffb84d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 0;
+      text-shadow: none;
+    }
+    .hero-text p { font-size: 1.15rem; color: var(--text); font-weight: 600; margin-bottom: 24px; }
+    .tagline { font-family: 'Pacifico', cursive; font-style: normal; color: var(--purple); font-size: 1.35rem; }
     .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
     .chip {
       background: #fff;
-      border: 2px solid var(--pink-light);
+      border: 3px solid var(--pink-dark);
       border-radius: 999px;
-      padding: 6px 16px;
-      font-weight: 600;
+      padding: 7px 16px;
+      font-weight: 800;
+      font-family: 'Baloo 2', cursive;
       font-size: .95rem;
+      box-shadow: 0 3px 0 var(--pink-dark);
     }
+    .chip:nth-child(2) { transform: rotate(2deg); background: #fff3c4; }
+    .chip:nth-child(3) { transform: rotate(-2deg); background: #e4dcff; }
     .btn {
       display: inline-block;
       padding: 14px 32px;
       border-radius: 999px;
-      border: none;
+      border: 3px solid var(--pink-dark);
       cursor: pointer;
-      font-family: inherit;
-      font-weight: 700;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
       font-size: 1.05rem;
       background: linear-gradient(135deg, var(--pink), var(--pink-dark));
       color: #fff;
-      box-shadow: 0 6px 18px rgba(240, 79, 140, .35);
-      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+      box-shadow: 0 5px 0 var(--pink-dark);
+      transition: transform .15s, box-shadow .15s, background .2s;
     }
-    .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 24px rgba(240, 79, 140, .45); }
-    .btn.ghost { background: #fff; color: var(--pink-dark); border: 2px solid var(--pink); box-shadow: none; }
-    .btn.ghost:hover { background: var(--pink-pale); }
+    .btn:hover { transform: translateY(-2px) rotate(-1.5deg) scale(1.03); box-shadow: 0 8px 0 var(--pink-dark), 0 14px 26px rgba(240, 79, 140, .35); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--pink-dark); }
+    .btn.ghost { background: #fff; color: var(--pink-dark); }
 
-    .hero-art-wrap { position: relative; width: min(400px, 80vw); flex: 0 0 auto; }
+    .hero-art-wrap { position: relative; width: min(420px, 84vw); flex: 0 0 auto; }
     .hero-art-wrap::before {
       content: '';
       position: absolute;
-      inset: 8%;
+      inset: 6%;
       border-radius: 50%;
-      background: radial-gradient(circle, var(--pink-pale), transparent 70%);
+      background: radial-gradient(circle, #ffffff, rgba(255, 255, 255, 0) 70%);
       z-index: -1;
     }
-    .hero-art { animation: float 4s ease-in-out infinite; filter: drop-shadow(0 12px 18px rgba(240, 79, 140, .25)); }
+    .hero-art { animation: float 4s ease-in-out infinite; filter: drop-shadow(0 14px 20px rgba(240, 79, 140, .3)); }
+    .hero-art svg { width: 100%; height: auto; }
     @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      50% { transform: translateY(-14px) rotate(3deg); }
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
     }
-    .orbit { position: absolute; font-size: 1.6rem; animation: float 4s ease-in-out infinite; }
-    .orbit.o1 { top: 4%; left: -4%; animation-delay: 0s; }
-    .orbit.o2 { top: 18%; right: -6%; animation-delay: 1.2s; }
-    .orbit.o3 { bottom: 2%; left: 6%; animation-delay: 2.1s; }
+    .orbit { position: absolute; font-size: 1.7rem; animation: float 4s ease-in-out infinite; z-index: 3; }
+    .orbit.o1 { top: 2%; left: -4%; animation-delay: 0s; }
+    .orbit.o2 { top: 16%; right: -6%; animation-delay: 1.2s; }
+    .orbit.o3 { bottom: 6%; left: 4%; animation-delay: 2.1s; }
+    .orbit.o4 { bottom: 14%; right: 2%; animation-delay: .6s; }
+
+    .sticker {
+      position: absolute;
+      z-index: 4;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 16px;
+      border: 3px solid var(--pink-dark);
+      background: #fff;
+      box-shadow: 0 4px 0 var(--pink-dark);
+      font-size: .95rem;
+      color: var(--pink-dark);
+      animation: stickerFloat 3s ease-in-out infinite;
+    }
+    .sticker.s1 { top: -4%; left: -8%; transform: rotate(-10deg); background: #fff3c4; }
+    .sticker.s2 { top: 22%; right: -10%; transform: rotate(9deg); background: #ffe3f0; animation-delay: .7s; }
+    .sticker.s3 { bottom: 2%; left: -10%; transform: rotate(-4deg); background: #e4dcff; animation-delay: 1.4s; }
+    @keyframes stickerFloat { 0%, 100% { margin-top: 0; } 50% { margin-top: -9px; } }
 
     /* ---------- Marquee ---------- */
     .marquee {
       overflow: hidden;
-      background: var(--pink);
+      background: linear-gradient(90deg, #ff6fa5, #a78bfa, #ffb84d);
+      border-top: 3px solid var(--pink-dark);
+      border-bottom: 3px solid var(--pink-dark);
       color: #fff;
-      padding: 10px 0;
-      font-weight: 600;
+      padding: 12px 0;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.05rem;
       letter-spacing: 1px;
     }
     .marquee-track { display: flex; width: max-content; animation: scroll 20s linear infinite; }
     .marquee-track span { padding-right: 2rem; }
+    .marquee.reverse .marquee-track { animation-direction: reverse; }
     @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ---------- Sections ---------- */
     .section { max-width: 1100px; margin: 0 auto; padding: 72px 24px; }
     .section-title {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: clamp(1.9rem, 4.5vw, 2.6rem);
       color: var(--pink-dark);
       text-align: center;
       margin-bottom: 8px;
+      text-decoration: underline wavy rgba(240, 79, 140, .45) 4px;
+      text-underline-offset: 10px;
     }
-    .section-sub { text-align: center; color: var(--text-soft); margin-bottom: 40px; }
+    .section-sub { text-align: center; color: var(--text-soft); font-weight: 600; margin-bottom: 40px; }
 
     /* ---------- Shop grid ---------- */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 26px; }
     .card {
       position: relative;
       background: #fff;
-      border: 2px solid var(--pink-pale);
-      border-radius: 24px;
+      border: 3px solid var(--pink-dark);
+      border-radius: 26px;
       padding: 24px 16px 20px;
       text-align: center;
-      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 6px 0 rgba(240, 79, 140, .3);
+      transition: box-shadow .25s;
+      will-change: transform;
     }
-    .card:hover {
-      transform: translateY(-6px) rotate(1.5deg);
-      box-shadow: 0 14px 30px rgba(240, 79, 140, .2);
-    }
+    .card:hover { box-shadow: 0 10px 0 rgba(240, 79, 140, .35), 0 20px 44px rgba(167, 139, 250, .4); }
     .card .scrunchie svg { width: 100%; max-width: 170px; height: auto; }
     .card:hover .scrunchie svg { animation: wiggle 1s ease-in-out infinite; }
-    @keyframes wiggle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-    .card h3 { font-size: 1.1rem; margin: 12px 0 4px; }
-    .price { color: var(--pink-dark); font-weight: 700; font-size: 1.2rem; margin-bottom: 12px; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+    .card h3 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.15rem; margin: 12px 0 4px; color: var(--text); }
+    .price {
+      display: inline-block;
+      color: #fff;
+      font-weight: 800;
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      border: 3px solid var(--pink-dark);
+      border-radius: 999px;
+      padding: 2px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 0 var(--pink-dark);
+      transform: rotate(-2deg);
+    }
     .add-btn {
       padding: 10px 20px;
       border-radius: 999px;
-      border: 2px solid var(--pink);
+      border: 3px solid var(--pink-dark);
       background: #fff;
       color: var(--pink-dark);
-      font-weight: 700;
-      font-family: inherit;
+      font-weight: 800;
+      font-family: 'Baloo 2', cursive;
+      font-size: .98rem;
       cursor: pointer;
-      transition: all .2s;
+      box-shadow: 0 4px 0 var(--pink-dark);
+      transition: all .15s;
     }
-    .add-btn:hover { background: var(--pink); color: #fff; }
+    .add-btn:hover { background: var(--pink); color: #fff; transform: translateY(-2px) rotate(-2deg); box-shadow: 0 6px 0 var(--pink-dark); }
+    .add-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--pink-dark); }
     .badge {
       position: absolute;
       top: 12px;
-      left: -8px;
+      left: -10px;
       z-index: 2;
       transform: rotate(-8deg);
-      background: linear-gradient(135deg, #ff9ebd, #f04f8c);
+      background: linear-gradient(135deg, #ffb84d, #ff8a3d);
       color: #fff;
-      font-size: .75rem;
-      font-weight: 700;
+      font-size: .8rem;
+      font-weight: 800;
+      font-family: 'Baloo 2', cursive;
       letter-spacing: 1px;
-      padding: 4px 14px;
+      padding: 5px 14px;
       border-radius: 999px;
-      box-shadow: 0 3px 8px rgba(240, 79, 140, .35);
+      border: 3px solid var(--pink-dark);
+      box-shadow: 0 3px 0 var(--pink-dark);
+      animation: badgePulse 2s ease-in-out infinite;
     }
+    @keyframes badgePulse { 0%, 100% { transform: rotate(-8deg) scale(1); } 50% { transform: rotate(-8deg) scale(1.1); } }
 
     /* ---------- Features & reviews ---------- */
     .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
     .feature {
       background: #fff;
-      border: 2px dashed var(--pink-light);
-      border-radius: 20px;
+      border: 3px solid var(--pink-dark);
+      border-radius: 22px;
       padding: 28px 20px;
       text-align: center;
+      box-shadow: 0 6px 0 rgba(240, 79, 140, .3);
+      transition: transform .25s;
     }
-    .feature .icon { font-size: 2.4rem; margin-bottom: 10px; }
-    .feature h3 { margin-bottom: 8px; }
-    .feature p { color: var(--text-soft); line-height: 1.5; }
+    .feature:nth-child(2) { transform: rotate(1deg); }
+    .feature:nth-child(3) { transform: rotate(-1deg); }
+    .feature:hover { transform: translateY(-6px) rotate(0) scale(1.03); }
+    .feature .icon { font-size: 2.6rem; margin-bottom: 10px; display: inline-block; animation: stickerFloat 2.5s ease-in-out infinite; }
+    .feature h3 { font-family: 'Baloo 2', cursive; font-weight: 800; margin-bottom: 8px; color: var(--pink-dark); }
+    .feature p { color: var(--text-soft); font-weight: 600; line-height: 1.5; }
     .review {
       background: #fff;
-      border: 2px solid var(--pink-pale);
-      border-radius: 20px;
+      border: 3px solid var(--pink-dark);
+      border-radius: 22px;
       padding: 24px 20px;
       text-align: center;
+      box-shadow: 0 6px 0 rgba(240, 79, 140, .3);
+      transition: transform .25s;
     }
-    .review .stars { color: #ffb84d; letter-spacing: 3px; margin-bottom: 10px; }
-    .review p { line-height: 1.55; margin-bottom: 12px; }
-    .review .who { font-weight: 700; color: var(--pink-dark); }
+    .review:nth-child(2) { transform: rotate(-1deg); }
+    .review:hover { transform: translateY(-6px) rotate(0) scale(1.03); }
+    .review .stars { color: #ffb84d; letter-spacing: 3px; margin-bottom: 10px; font-size: 1.1rem; }
+    .review p { line-height: 1.55; font-weight: 600; margin-bottom: 12px; }
+    .review .who { font-weight: 800; font-family: 'Baloo 2', cursive; color: var(--pink-dark); }
 
     /* ---------- CTA banner ---------- */
     .cta {
@@ -237,41 +311,42 @@
       margin: 0 auto 72px;
       padding: 56px 24px;
       text-align: center;
-      background: linear-gradient(135deg, #ff9ebd, #f04f8c);
+      background: linear-gradient(120deg, #ff9ebd, #c9a7eb, #ffc9a3, #ff9ebd);
+      background-size: 200% 200%;
+      animation: ctaShift 8s ease infinite;
+      border: 3px solid var(--pink-dark);
       border-radius: 32px;
       color: #fff;
-      box-shadow: 0 14px 34px rgba(240, 79, 140, .35);
+      box-shadow: 0 8px 0 rgba(240, 79, 140, .35);
     }
+    @keyframes ctaShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .cta h2 {
-      font-family: 'Pacifico', cursive;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
       font-size: clamp(1.7rem, 4vw, 2.4rem);
       margin-bottom: 20px;
+      -webkit-text-stroke: 1.5px var(--pink-dark);
     }
-    .cta .btn { background: #fff; color: var(--pink-dark); box-shadow: 0 6px 18px rgba(0, 0, 0, .15); }
+    .cta .btn { background: #fff; color: var(--pink-dark); box-shadow: 0 5px 0 var(--pink-dark); }
 
     /* ---------- Footer ---------- */
     footer {
-      background: var(--text);
+      background: linear-gradient(120deg, #5c3a52, #7a4a6b);
       color: #f5d9e7;
       padding: 48px 24px 28px;
       text-align: center;
+      border-top: 3px solid var(--pink-dark);
     }
     footer .logo { display: block; margin-bottom: 8px; }
     footer .links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
-    footer .links a { color: #f5d9e7; text-decoration: none; font-weight: 600; }
+    footer .links a { color: #f5d9e7; text-decoration: none; font-weight: 700; font-family: 'Baloo 2', cursive; }
     footer .links a:hover { color: #fff; }
     footer small { display: block; margin-top: 16px; color: #c9a3b8; }
 
-    /* ---------- Floating decorations ---------- */
-    .float-heart {
-      position: fixed;
-      bottom: -50px;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .55;
-      animation: rise linear forwards;
-    }
-    @keyframes rise { to { transform: translateY(-110vh) rotate(20deg); } }
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(26px) scale(.97); transition: opacity .5s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
+    .reveal.in { opacity: 1; transform: none; }
+
     .burst {
       position: fixed;
       z-index: 99;
@@ -288,7 +363,7 @@
 <body>
 
   <nav>
-    <span class="logo">Lovie Loops 🎀</span>
+    <span class="logo">Lovie Loops 🎀<small>twirl &amp; tie</small></span>
     <ul class="nav-links">
       <li><a href="#shop">Shop</a></li>
       <li><a href="#about">About</a></li>
@@ -301,7 +376,7 @@
 
   <header class="hero">
     <div class="hero-text">
-      <h1>Lovie Loops 💕</h1>
+      <h1>Lovie <span class="grad">Loops</span> 💕</h1>
       <p><em class="tagline">twirl &amp; tie</em> — velvet-soft, snag-free, and dangerously adorable. Your ponytail called — it wants an upgrade.</p>
       <div class="chips">
         <span class="chip">🌸 No dents</span>
@@ -315,6 +390,10 @@
       <span class="orbit o1">🎀</span>
       <span class="orbit o2">✨</span>
       <span class="orbit o3">💗</span>
+      <span class="orbit o4">🍭</span>
+      <span class="sticker s1">SO CUTE!</span>
+      <span class="sticker s2">NEW DROP ✨</span>
+      <span class="sticker s3">5★ LOVED</span>
       <div class="hero-art">
         <!-- Lovie the mascot: original Ghibli-style girl with scrunchie bow and frock -->
         <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cute girl wearing a scrunchie bow and a pink frock">
@@ -385,21 +464,23 @@
 
   <main>
     <section class="section" id="shop">
-      <h2 class="section-title">Shop the Cuties 🛍️</h2>
-      <p class="section-sub">Every scrunchie comes with a smile — and a money-back snuggles guarantee.</p>
-      <div class="grid" id="shop-grid"></div>
+      <h2 class="section-title reveal">Shop the Cuties 🛍️</h2>
+      <p class="section-sub reveal">Every scrunchie comes with a smile — and a money-back snuggles guarantee.</p>
+      <div class="grid reveal" id="shop-grid"></div>
     </section>
 
+    <div class="marquee reverse"><div class="marquee-track" id="marquee-track2"></div></div>
+
     <section class="section" id="deals">
-      <h2 class="section-title">Sweet $5 Deals 🍭</h2>
-      <p class="section-sub">Sample scrunchies, one sweet price — all $5, all adorable.</p>
-      <div class="grid" id="deals-grid"></div>
+      <h2 class="section-title reveal">Sweet $5 Deals 🍭</h2>
+      <p class="section-sub reveal">Sample scrunchies, one sweet price — all $5, all adorable.</p>
+      <div class="grid reveal" id="deals-grid"></div>
     </section>
 
     <section class="section" id="about">
-      <h2 class="section-title">Why You'll Love Us 💖</h2>
-      <p class="section-sub">Three promises, sealed with a bow.</p>
-      <div class="features">
+      <h2 class="section-title reveal">Why You'll Love Us 💖</h2>
+      <p class="section-sub reveal">Three promises, sealed with a bow.</p>
+      <div class="features reveal">
         <div class="feature">
           <div class="icon">🌸</div>
           <h3>No Snag, No Dent</h3>
@@ -419,9 +500,9 @@
     </section>
 
     <section class="section" id="reviews">
-      <h2 class="section-title">What the Girlies Say 💬</h2>
-      <p class="section-sub">Real reviews from real ponytails.</p>
-      <div class="grid">
+      <h2 class="section-title reveal">What the Girlies Say 💬</h2>
+      <p class="section-sub reveal">Real reviews from real ponytails.</p>
+      <div class="grid reveal">
         <div class="review">
           <div class="stars">⭐⭐⭐⭐⭐</div>
           <p>"Cutest scrunchies EVER. My ponytail has never felt this seen."</p>
@@ -440,7 +521,7 @@
       </div>
     </section>
 
-    <div class="cta">
+    <div class="cta reveal">
       <h2>Your Hair Deserves the Cutest 🎀</h2>
       <a class="btn" href="#shop">Shop Now 💖</a>
     </div>
@@ -523,6 +604,7 @@
     scrunchies.forEach((s, i) => {
       const card = document.createElement('article');
       card.className = 'card';
+      card.style.transitionDelay = (i % 4) * 70 + 'ms';
       card.innerHTML = `
         ${i % 3 === 2 ? '<span class="badge">NEW</span>' : ''}
         <div class="scrunchie">${scrunchieSVG(s, i)}</div>
@@ -544,6 +626,7 @@
     deals.forEach((s, i) => {
       const card = document.createElement('article');
       card.className = 'card';
+      card.style.transitionDelay = (i % 4) * 70 + 'ms';
       card.innerHTML = `
         <span class="badge">$5 DEAL</span>
         <div class="scrunchie">${scrunchieSVG(s, i)}</div>
@@ -555,32 +638,45 @@
 
     const marqueeText =
       'NEW COLORS DAILY 💖 NO HAIR DENTS 💖 VELVET SOFT 💖 FREE SHIPPING OVER $25 💖 MADE WITH LOVE 💖 ';
-    const track = document.getElementById('marquee-track');
-    track.innerHTML = `<span>${marqueeText}</span><span>${marqueeText}</span>`;
+    const marqueeText2 =
+      'TWIRL & TIE 🎀 SO FLUFFY ☁️ ADD TO CART 🛍️ CUTE HAIR HAPPY DAY 🌸 LOOP IT UP 💕 ';
+    document.getElementById('marquee-track').innerHTML = `<span>${marqueeText}</span><span>${marqueeText}</span>`;
+    document.getElementById('marquee-track2').innerHTML = `<span>${marqueeText2}</span><span>${marqueeText2}</span>`;
 
     /* ---------- Cart (storage + badge live in js/shared.js) ---------- */
-
-    function spawnBurst(btn) {
-      const rect = btn.getBoundingClientRect();
-      const emojis = ['💖', '💕', '✨'];
-      for (let k = 0; k < 3; k++) {
-        const el = document.createElement('span');
-        el.className = 'burst';
-        el.textContent = emojis[k];
-        el.style.left = (rect.left + rect.width / 2 + (Math.random() * 40 - 20)) + 'px';
-        el.style.top = rect.top + 'px';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 900);
-      }
-    }
 
     document.querySelectorAll('.add-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         const item = ALL_ITEMS.find((s) => s.id === btn.dataset.id);
         SL.cart.add({ id: item.id, name: item.name, emoji: item.emoji, price: item.priceNum });
-        spawnBurst(btn);
+        const rect = btn.getBoundingClientRect();
+        SL.confetti(rect.left + rect.width / 2, rect.top);
       });
     });
+
+    /* ---------- 3D tilt on cards (desktop) ---------- */
+
+    if (matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.card').forEach((card) => {
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform =
+            `perspective(700px) rotateX(${(-y * 10).toFixed(1)}deg) rotateY(${(x * 10).toFixed(1)}deg) translateY(-4px)`;
+        });
+        card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+      });
+    }
+
+    /* ---------- Scroll reveal ---------- */
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
   </script>
 </body>
 </html>

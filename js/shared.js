@@ -191,9 +191,47 @@
     });
   }
 
+  /* ---- Confetti ---- */
+  function confetti(x, y) {
+    const colors = ['#ff6fa5', '#a78bfa', '#ffd166', '#7dd3a8', '#ff9ebd', '#8fb8ff'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('span');
+      p.className = 'sl-confetti';
+      p.style.left = (x || innerWidth / 2) + 'px';
+      p.style.top = (y || innerHeight / 3) + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.setProperty('--dx', (Math.random() * 140 - 70).toFixed(0) + 'px');
+      p.style.setProperty('--rot', (Math.random() * 540 - 270).toFixed(0) + 'deg');
+      p.style.animationDelay = (Math.random() * 0.15).toFixed(2) + 's';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1000);
+    }
+  }
+
   /* ---- Boot ---- */
   const css = document.createElement('style');
   css.textContent = `
+    /* vivid animated gradient everywhere */
+    body { background: linear-gradient(120deg, #ffe0ef, #e6d9ff, #ffedd6, #ffe0ef); background-size: 300% 300%; animation: sl-bg 16s ease infinite; }
+    @keyframes sl-bg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    /* floating color blobs */
+    .sl-blob { position: fixed; border-radius: 50%; filter: blur(70px); opacity: .5; z-index: -1; pointer-events: none; animation: sl-drift 16s ease-in-out infinite alternate; }
+    @keyframes sl-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(60px, -40px) scale(1.15); } }
+
+    /* chunky sticker buttons */
+    .btn { border-radius: 999px; border: 3px solid var(--pink-dark, #f04f8c); box-shadow: 0 5px 0 var(--pink-dark, #f04f8c); font-family: 'Baloo 2', 'Quicksand', sans-serif; font-weight: 800; transition: transform .15s, box-shadow .15s; }
+    .btn:hover { transform: translateY(-2px) rotate(-1.5deg) scale(1.02); box-shadow: 0 8px 0 var(--pink-dark, #f04f8c); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--pink-dark, #f04f8c); }
+
+    /* cursor sparkles */
+    .sl-cursor { position: fixed; z-index: 98; pointer-events: none; font-size: .85rem; animation: sl-fadeUp .8s ease-out forwards; transform: translate(-50%, -50%); }
+    @keyframes sl-fadeUp { to { opacity: 0; transform: translate(-50%, -46px) scale(.4); } }
+
+    /* confetti pieces */
+    .sl-confetti { position: fixed; width: 9px; height: 9px; border-radius: 2px; z-index: 99; pointer-events: none; animation: sl-fall .9s ease-out forwards; }
+    @keyframes sl-fall { from { opacity: 1; transform: translate(0, 0) rotate(0); } to { opacity: 0; transform: translate(var(--dx), 130px) rotate(var(--rot)); } }
+
     .float-heart { position: fixed; bottom: -50px; z-index: 1; pointer-events: none; opacity: .55; animation: sl-rise linear forwards; }
     @keyframes sl-rise { to { transform: translateY(-110vh) rotate(20deg); } }
     [data-cart-count].bump { display: inline-block; animation: sl-bump .3s; }
@@ -201,7 +239,46 @@
   `;
   document.head.appendChild(css);
 
-  window.SL = { CONFIG, cart, orders, store, newOrderId, orderTotals, whatsappOrderUrl, esc, load, save, spawnHeart };
+  /* chunky font for buttons on pages that don't load it */
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap';
+  document.head.appendChild(fontLink);
+
+  /* blobs */
+  const blobColors = ['#ff9ebd', '#c9a7eb', '#ffd0a8'];
+  blobColors.forEach((c, i) => {
+    const b = document.createElement('div');
+    b.className = 'sl-blob';
+    b.style.background = c;
+    b.style.width = (300 + i * 70) + 'px';
+    b.style.height = (300 + i * 70) + 'px';
+    b.style.animationDelay = (i * -6) + 's';
+    const pos = [['-80px', '10%'], ['60%', '-100px'], ['70%', '70%']][i];
+    b.style.left = pos[0];
+    b.style.top = pos[1];
+    document.body.appendChild(b);
+  });
+
+  /* cursor sparkle trail (fine pointers only) */
+  if (matchMedia('(pointer: fine)').matches) {
+    let lastSparkle = 0;
+    document.addEventListener('pointermove', (e) => {
+      const now = Date.now();
+      if (now - lastSparkle < 90) return;
+      lastSparkle = now;
+      if (e.target.closest('.sl-chat-panel')) return;
+      const s = document.createElement('span');
+      s.className = 'sl-cursor';
+      s.textContent = ['✨', '⭐', '💗'][Math.floor(Math.random() * 3)];
+      s.style.left = e.clientX + 'px';
+      s.style.top = e.clientY + 'px';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 800);
+    });
+  }
+
+  window.SL = { CONFIG, cart, orders, store, newOrderId, orderTotals, whatsappOrderUrl, esc, load, save, spawnHeart, confetti };
 
   for (let i = 0; i < 6; i++) spawnHeart(true);
   setInterval(() => spawnHeart(), 1400);
