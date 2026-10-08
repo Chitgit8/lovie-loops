@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ScrunchieLand — velvet-soft, snag-free scrunchies with kawaii faces. Cute scrunchies for cute hair." />
+  <title>ScrunchieLand 🎀 — Cute Scrunchies for Cute Hair</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff6fa5;
+      --pink-dark: #f04f8c;
+      --pink-light: #ffb6d5;
+      --pink-pale: #ffe3f0;
+      --cream: #fffafc;
+      --text: #5c3a52;
+      --text-soft: #a2718f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Quicksand', 'Trebuchet MS', sans-serif;
+      background-color: var(--cream);
+      background-image: radial-gradient(#ffe9f4 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--pink-pale);
+    }
+    .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink-dark); }
+    .nav-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink); }
+    .cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink-pale);
+      border: 2px solid var(--pink-light);
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    #cart-count { display: inline-block; min-width: 22px; text-align: center; }
+    #cart-count.bump { animation: bump .3s; }
+    @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.6); } 100% { transform: scale(1); } }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .hero-text { flex: 1 1 340px; }
+    .hero-text h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      color: var(--pink-dark);
+      margin-bottom: 16px;
+    }
+    .hero-text p { font-size: 1.15rem; color: var(--text-soft); margin-bottom: 24px; }
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .chip {
+      background: #fff;
+      border: 2px solid var(--pink-light);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-weight: 600;
+      font-size: .95rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(240, 79, 140, .35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 24px rgba(240, 79, 140, .45); }
+    .btn.ghost { background: #fff; color: var(--pink-dark); border: 2px solid var(--pink); box-shadow: none; }
+    .btn.ghost:hover { background: var(--pink-pale); }
+
+    .hero-art-wrap { position: relative; width: min(400px, 80vw); flex: 0 0 auto; }
+    .hero-art-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--pink-pale), transparent 70%);
+      z-index: -1;
+    }
+    .hero-art { animation: float 4s ease-in-out infinite; filter: drop-shadow(0 12px 18px rgba(240, 79, 140, .25)); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-14px) rotate(3deg); }
+    }
+    .orbit { position: absolute; font-size: 1.6rem; animation: float 4s ease-in-out infinite; }
+    .orbit.o1 { top: 4%; left: -4%; animation-delay: 0s; }
+    .orbit.o2 { top: 18%; right: -6%; animation-delay: 1.2s; }
+    .orbit.o3 { bottom: 2%; left: 6%; animation-delay: 2.1s; }
+
+    /* ---------- Marquee ---------- */
+    .marquee {
+      overflow: hidden;
+      background: var(--pink);
+      color: #fff;
+      padding: 10px 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .marquee-track { display: flex; width: max-content; animation: scroll 20s linear infinite; }
+    .marquee-track span { padding-right: 2rem; }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ---------- Sections ---------- */
+    .section { max-width: 1100px; margin: 0 auto; padding: 72px 24px; }
+    .section-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      color: var(--pink-dark);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-sub { text-align: center; color: var(--text-soft); margin-bottom: 40px; }
+
+    /* ---------- Shop grid ---------- */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; }
+    .card {
+      position: relative;
+      background: #fff;
+      border: 2px solid var(--pink-pale);
+      border-radius: 24px;
+      padding: 24px 16px 20px;
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:hover {
+      transform: translateY(-6px) rotate(1.5deg);
+      box-shadow: 0 14px 30px rgba(240, 79, 140, .2);
+    }
+    .card .scrunchie svg { width: 100%; max-width: 170px; height: auto; }
+    .card:hover .scrunchie svg { animation: wiggle 1s ease-in-out infinite; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .card h3 { font-size: 1.1rem; margin: 12px 0 4px; }
+    .price { color: var(--pink-dark); font-weight: 700; font-size: 1.2rem; margin-bottom: 12px; }
+    .add-btn {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 2px solid var(--pink);
+      background: #fff;
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .add-btn:hover { background: var(--pink); color: #fff; }
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: -8px;
+      z-index: 2;
+      transform: rotate(-8deg);
+      background: linear-gradient(135deg, #ff9ebd, #f04f8c);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      box-shadow: 0 3px 8px rgba(240, 79, 140, .35);
+    }
+
+    /* ---------- Features & reviews ---------- */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .feature {
+      background: #fff;
+      border: 2px dashed var(--pink-light);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .feature .icon { font-size: 2.4rem; margin-bottom: 10px; }
+    .feature h3 { margin-bottom: 8px; }
+    .feature p { color: var(--text-soft); line-height: 1.5; }
+    .review {
+      background: #fff;
+      border: 2px solid var(--pink-pale);
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .review .stars { color: #ffb84d; letter-spacing: 3px; margin-bottom: 10px; }
+    .review p { line-height: 1.55; margin-bottom: 12px; }
+    .review .who { font-weight: 700; color: var(--pink-dark); }
+
+    /* ---------- CTA banner ---------- */
+    .cta {
+      max-width: 1100px;
+      margin: 0 auto 72px;
+      padding: 56px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9ebd, #f04f8c);
+      border-radius: 32px;
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(240, 79, 140, .35);
+    }
+    .cta h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      margin-bottom: 20px;
+    }
+    .cta .btn { background: #fff; color: var(--pink-dark); box-shadow: 0 6px 18px rgba(0, 0, 0, .15); }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--text);
+      color: #f5d9e7;
+      padding: 48px 24px 28px;
+      text-align: center;
+    }
+    footer .logo { display: block; margin-bottom: 8px; }
+    footer .links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+    footer .links a { color: #f5d9e7; text-decoration: none; font-weight: 600; }
+    footer .links a:hover { color: #fff; }
+    footer small { display: block; margin-top: 16px; color: #c9a3b8; }
+
+    /* ---------- Floating decorations ---------- */
+    .float-heart {
+      position: fixed;
+      bottom: -50px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .55;
+      animation: rise linear forwards;
+    }
+    @keyframes rise { to { transform: translateY(-110vh) rotate(20deg); } }
+    .burst {
+      position: fixed;
+      z-index: 99;
+      pointer-events: none;
+      font-size: 18px;
+      animation: burstUp .9s ease-out forwards;
+    }
+    @keyframes burstUp {
+      from { opacity: 1; transform: translate(-50%, 0) scale(.6); }
+      to { opacity: 0; transform: translate(-50%, -70px) scale(1.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="logo">ScrunchieLand 🎀</span>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="login.html">Login 🔐</a></li>
+    </ul>
+    <button class="cart" aria-label="Shopping cart">🛍️ <span id="cart-count">0</span></button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-text">
+      <h1>Cute Scrunchies for Cute Hair 💕</h1>
+      <p>Velvet-soft, snag-free, and dangerously adorable. Your ponytail called — it wants an upgrade.</p>
+      <div class="chips">
+        <span class="chip">🌸 No dents</span>
+        <span class="chip">☁️ Velvet soft</span>
+        <span class="chip">💗 Handmade</span>
+      </div>
+      <a class="btn" href="#shop">Shop the Cuties 🛍️</a>
+      <a class="btn ghost" href="#reviews">Meet the Fam 🌸</a>
+    </div>
+    <div class="hero-art-wrap">
+      <span class="orbit o1">🎀</span>
+      <span class="orbit o2">✨</span>
+      <span class="orbit o3">💗</span>
+      <div class="hero-art" id="hero-art"></div>
+    </div>
+  </header>
+
+  <div class="marquee"><div class="marquee-track" id="marquee-track"></div></div>
+
+  <main>
+    <section class="section" id="shop">
+      <h2 class="section-title">Shop the Cuties 🛍️</h2>
+      <p class="section-sub">Every scrunchie comes with a smile — and a money-back snuggles guarantee.</p>
+      <div class="grid" id="shop-grid"></div>
+    </section>
+
+    <section class="section" id="deals">
+      <h2 class="section-title">Sweet $5 Deals 🍭</h2>
+      <p class="section-sub">Sample scrunchies, one sweet price — all $5, all adorable.</p>
+      <div class="grid" id="deals-grid"></div>
+    </section>
+
+    <section class="section" id="about">
+      <h2 class="section-title">Why You'll Love Us 💖</h2>
+      <p class="section-sub">Three promises, sealed with a bow.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="icon">🌸</div>
+          <h3>No Snag, No Dent</h3>
+          <p>Gentle on strands, zero headaches, zero ponytail crimes.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">☁️</div>
+          <h3>Cloud-Soft Velvet</h3>
+          <p>Like a hug for your ponytail. Machine washable, always fluffy.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">💗</div>
+          <h3>Handmade With Love</h3>
+          <p>Each scrunchie stitched with care (and a little sparkle).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <h2 class="section-title">What the Girlies Say 💬</h2>
+      <p class="section-sub">Real reviews from real ponytails.</p>
+      <div class="grid">
+        <div class="review">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"Cutest scrunchies EVER. My ponytail has never felt this seen."</p>
+          <div class="who">— Mia 🍓</div>
+        </div>
+        <div class="review">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"No headaches, no dents, all cute. I own 9 and counting."</p>
+          <div class="who">— Jess 🦄</div>
+        </div>
+        <div class="review">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p>"Bought one. Now I own 14. Send help (more scrunchies)."</p>
+          <div class="who">— Priya 🌸</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta">
+      <h2>Your Hair Deserves the Cutest 🎀</h2>
+      <a class="btn" href="#shop">Shop Now 💖</a>
+    </div>
+  </main>
+
+  <footer>
+    <span class="logo">ScrunchieLand 🎀</span>
+    <p>Cute scrunchies for cute hair.</p>
+    <div class="links">
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="mailto:hello@scrunchieland.example">hello@scrunchieland.example</a>
+    </div>
+    <small>© 2026 ScrunchieLand · Made with 💕 and elastic · Demo site</small>
+  </footer>
+
+  <script>
+    /* ---------- Scrunchie SVG art ---------- */
+
+    function scallopPath(cx, cy, R, bump, n) {
+      let d = '';
+      for (let i = 0; i < n; i++) {
+        const a0 = (i / n) * Math.PI * 2;
+        const a1 = ((i + 1) / n) * Math.PI * 2;
+        const am = (a0 + a1) / 2;
+        const x0 = cx + Math.cos(a0) * R, y0 = cy + Math.sin(a0) * R;
+        const xm = cx + Math.cos(am) * (R - bump), ym = cy + Math.sin(am) * (R - bump);
+        const x1 = cx + Math.cos(a1) * R, y1 = cy + Math.sin(a1) * R;
+        d += (i === 0 ? 'M' : 'L') + x0.toFixed(1) + ',' + y0.toFixed(1);
+        d += ' Q' + xm.toFixed(1) + ',' + ym.toFixed(1) + ' ' + x1.toFixed(1) + ',' + y1.toFixed(1);
+      }
+      return d + ' Z';
+    }
+
+    function bowSVG(x, y, color) {
+      return `
+        <g stroke="${color}" stroke-width="2.5">
+          <ellipse cx="${x - 11}" cy="${y}" rx="11" ry="7" fill="#ffffff" opacity="0.85" transform="rotate(-25 ${x - 11} ${y})"/>
+          <ellipse cx="${x + 11}" cy="${y}" rx="11" ry="7" fill="#ffffff" opacity="0.85" transform="rotate(25 ${x + 11} ${y})"/>
+        </g>
+        <circle cx="${x}" cy="${y}" r="4.5" fill="${color}"/>`;
+    }
+
+    function scrunchieSVG(s, i) {
+      const withBow = i % 3 === 0;
+      return `
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${s.name} scrunchie">
+        <path d="${scallopPath(100, 100, 70, 16, 18)}" fill="${s.main}" stroke="${s.dark}" stroke-width="3"/>
+        <circle cx="100" cy="100" r="34" fill="#fff7fb" stroke="#f3d8e5" stroke-width="3"/>
+        <ellipse cx="100" cy="74" rx="17" ry="6" fill="#e8b8cf" transform="rotate(-8 100 74)"/>
+        <ellipse cx="66" cy="64" rx="24" ry="10" fill="#ffffff" opacity="0.4" transform="rotate(-40 66 64)"/>
+        <ellipse cx="87" cy="58" rx="4" ry="5" fill="#5c3a52"/>
+        <ellipse cx="113" cy="58" rx="4" ry="5" fill="#5c3a52"/>
+        <circle cx="88" cy="56" r="1.6" fill="#fff"/>
+        <circle cx="114" cy="56" r="1.6" fill="#fff"/>
+        <path d="M 91 69 Q 100 76 109 69" fill="none" stroke="#5c3a52" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="76" cy="66" rx="7" ry="4" fill="#ff9ebd" opacity="0.55"/>
+        <ellipse cx="124" cy="66" rx="7" ry="4" fill="#ff9ebd" opacity="0.55"/>
+        ${withBow ? bowSVG(100, 26, s.dark) : ''}
+      </svg>`;
+    }
+
+    const scrunchies = [
+      { name: 'Strawberry Milk', price: '$8', main: '#ff9ebd', dark: '#f76b9d', emoji: '🍓' },
+      { name: 'Lavender Dream',   price: '$9', main: '#c9a7eb', dark: '#b18ad8', emoji: '🦄' },
+      { name: 'Minty Fresh',      price: '$7', main: '#9ee6cf', dark: '#6fd1b0', emoji: '🌿' },
+      { name: 'Peachy Keen',      price: '$8', main: '#ffc9a3', dark: '#f7a872', emoji: '🍑' },
+      { name: 'Bubblegum Pop',    price: '$9', main: '#ff8fc8', dark: '#f75da8', emoji: '🫧' },
+      { name: 'Sky Blue Babe',    price: '$7', main: '#a8d8f7', dark: '#7dbee8', emoji: '☁️' },
+      { name: 'Lemon Drop',       price: '$8', main: '#ffe59a', dark: '#f7cd5e', emoji: '🍋' },
+      { name: 'Rose Garden',      price: '$10', main: '#f79bb8', dark: '#e06f96', emoji: '🌹' },
+    ];
+
+    /* ---------- Render ---------- */
+
+    document.getElementById('hero-art').innerHTML = scrunchieSVG(scrunchies[0], 0);
+
+    const shopGrid = document.getElementById('shop-grid');
+    scrunchies.forEach((s, i) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        ${i % 3 === 2 ? '<span class="badge">NEW</span>' : ''}
+        <div class="scrunchie">${scrunchieSVG(s, i)}</div>
+        <h3>${s.name} ${s.emoji}</h3>
+        <p class="price">${s.price}</p>
+        <button class="add-btn">Add to Cart 💖</button>`;
+      shopGrid.appendChild(card);
+    });
+
+    const deals = [
+      { name: 'Cherry Kiss',   price: '$5', main: '#ff8a9e', dark: '#f0556f', emoji: '🍒' },
+      { name: 'Cotton Candy',  price: '$5', main: '#b8dcff', dark: '#8fbfe8', emoji: '🍬' },
+      { name: 'Pistachio Pop', price: '$5', main: '#bfe8a8', dark: '#94d17c', emoji: '🌱' },
+      { name: 'Lilac Love',    price: '$5', main: '#d5b8f0', dark: '#b98fe0', emoji: '💜' },
+    ];
+
+    const dealsGrid = document.getElementById('deals-grid');
+    deals.forEach((s, i) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <span class="badge">$5 DEAL</span>
+        <div class="scrunchie">${scrunchieSVG(s, i)}</div>
+        <h3>${s.name} ${s.emoji}</h3>
+        <p class="price">${s.price}</p>
+        <button class="add-btn">Add to Cart 💖</button>`;
+      dealsGrid.appendChild(card);
+    });
+
+    const marqueeText =
+      'NEW COLORS DAILY 💖 NO HAIR DENTS 💖 VELVET SOFT 💖 FREE SHIPPING OVER $25 💖 MADE WITH LOVE 💖 ';
+    const track = document.getElementById('marquee-track');
+    track.innerHTML = `<span>${marqueeText}</span><span>${marqueeText}</span>`;
+
+    /* ---------- Cart ---------- */
+
+    let cartCount = 0;
+    const cartBadge = document.getElementById('cart-count');
+
+    function spawnBurst(btn) {
+      const rect = btn.getBoundingClientRect();
+      const emojis = ['💖', '💕', '✨'];
+      for (let k = 0; k < 3; k++) {
+        const el = document.createElement('span');
+        el.className = 'burst';
+        el.textContent = emojis[k];
+        el.style.left = (rect.left + rect.width / 2 + (Math.random() * 40 - 20)) + 'px';
+        el.style.top = rect.top + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 900);
+      }
+    }
+
+    document.querySelectorAll('.add-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        cartCount++;
+        cartBadge.textContent = cartCount;
+        cartBadge.classList.remove('bump');
+        void cartBadge.offsetWidth; /* restart animation */
+        cartBadge.classList.add('bump');
+        spawnBurst(btn);
+      });
+    });
+
+    /* ---------- Floating background hearts ---------- */
+
+    function spawnBgHeart(initial) {
+      const el = document.createElement('span');
+      el.className = 'float-heart';
+      el.textContent = ['💖', '🌸', '✨', '💕', '🎀'][Math.floor(Math.random() * 5)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (14 + Math.random() * 22) + 'px';
+      el.style.animationDuration = (6 + Math.random() * 6) + 's';
+      if (initial) el.style.bottom = (Math.random() * 80) + 'vh';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 13000);
+    }
+
+    for (let i = 0; i < 6; i++) spawnBgHeart(true);
+    setInterval(() => spawnBgHeart(), 1400);
+  </script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Log in to ScrunchieLand — your scrunchies missed you." />
+  <title>Login — ScrunchieLand 🎀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff6fa5;
+      --pink-dark: #f04f8c;
+      --pink-light: #ffb6d5;
+      --pink-pale: #ffe3f0;
+      --cream: #fffafc;
+      --text: #5c3a52;
+      --text-soft: #a2718f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', 'Trebuchet MS', sans-serif;
+      background-color: var(--cream);
+      background-image: radial-gradient(#ffe9f4 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--pink-pale);
+    }
+    .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink-dark); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink); }
+
+    /* ---------- Login ---------- */
+    .login-wrap {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+    .login-card {
+      background: #fff;
+      border: 2px solid var(--pink-pale);
+      border-radius: 28px;
+      padding: 40px 32px;
+      width: min(420px, 100%);
+      text-align: center;
+      box-shadow: 0 14px 34px rgba(240, 79, 140, .18);
+    }
+    .login-card h1 {
+      font-family: 'Pacifico', cursive;
+      color: var(--pink-dark);
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+    .login-card .sub { color: var(--text-soft); margin-bottom: 24px; }
+
+    form { text-align: left; }
+    label { display: block; font-weight: 700; font-size: .9rem; margin: 14px 0 6px; }
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--pink-light);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--cream);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+    input:focus { border-color: var(--pink); }
+    .pw-wrap { position: relative; }
+    .pw-wrap input { padding-right: 44px; }
+    #toggle-pw {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .remember { display: flex; align-items: center; gap: 8px; margin: 16px 0; font-weight: 600; }
+    .remember input { accent-color: var(--pink); width: auto; }
+
+    .error {
+      color: #e05a8c;
+      font-weight: 600;
+      font-size: .9rem;
+      min-height: 1.2em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px 32px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(240, 79, 140, .35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 24px rgba(240, 79, 140, .45); }
+    .foot { margin-top: 20px; color: var(--text-soft); }
+    .foot a { color: var(--pink-dark); font-weight: 700; text-decoration: none; }
+    .foot a:hover { text-decoration: underline; }
+
+    .hidden { display: none; }
+
+    #success-art svg {
+      width: 150px;
+      height: auto;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 16px rgba(240, 79, 140, .25));
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-14px) rotate(3deg); }
+    }
+
+    /* ---------- Floating decorations ---------- */
+    .float-heart {
+      position: fixed;
+      bottom: -50px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .55;
+      animation: rise linear forwards;
+    }
+    @keyframes rise { to { transform: translateY(-110vh) rotate(20deg); } }
+    .burst {
+      position: fixed;
+      z-index: 99;
+      pointer-events: none;
+      font-size: 18px;
+      animation: burstUp 1s ease-out forwards;
+    }
+    @keyframes burstUp {
+      from { opacity: 1; transform: translate(-50%, 0) scale(.6); }
+      to { opacity: 0; transform: translate(-50%, -80px) scale(1.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="logo">ScrunchieLand 🎀</span>
+    <ul class="nav-links">
+      <li><a href="index.html">← Back to Shop</a></li>
+    </ul>
+  </nav>
+
+  <main class="login-wrap">
+    <div class="login-card" id="login-card">
+      <h1>Welcome Back, Cutie 💕</h1>
+      <p class="sub">Log in to snag your scrunchies.</p>
+      <form id="login-form" novalidate>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+          <button type="button" id="toggle-pw" aria-label="Show password">👁️</button>
+        </div>
+
+        <label class="remember"><input type="checkbox" /> Remember me 💗</label>
+
+        <p class="error" id="error"></p>
+        <button type="submit" class="btn">Log In 💖</button>
+      </form>
+      <p class="foot">No account yet? <a href="#" id="signup-link">Sign up 🌸</a></p>
+    </div>
+
+    <div class="login-card hidden" id="success-card">
+      <div id="success-art"></div>
+      <h1>Welcome back, cutie! 💕</h1>
+      <p class="sub">Your scrunchies missed you.</p>
+      <a class="btn" href="index.html">Back to Shopping 🛍️</a>
+    </div>
+  </main>
+
+  <script>
+    /* ---------- Scrunchie SVG art (for success card) ---------- */
+
+    function scallopPath(cx, cy, R, bump, n) {
+      let d = '';
+      for (let i = 0; i < n; i++) {
+        const a0 = (i / n) * Math.PI * 2;
+        const a1 = ((i + 1) / n) * Math.PI * 2;
+        const am = (a0 + a1) / 2;
+        const x0 = cx + Math.cos(a0) * R, y0 = cy + Math.sin(a0) * R;
+        const xm = cx + Math.cos(am) * (R - bump), ym = cy + Math.sin(am) * (R - bump);
+        const x1 = cx + Math.cos(a1) * R, y1 = cy + Math.sin(a1) * R;
+        d += (i === 0 ? 'M' : 'L') + x0.toFixed(1) + ',' + y0.toFixed(1);
+        d += ' Q' + xm.toFixed(1) + ',' + ym.toFixed(1) + ' ' + x1.toFixed(1) + ',' + y1.toFixed(1);
+      }
+      return d + ' Z';
+    }
+
+    function scrunchieSVG(main, dark) {
+      return `
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Happy scrunchie">
+        <path d="${scallopPath(100, 100, 70, 16, 18)}" fill="${main}" stroke="${dark}" stroke-width="3"/>
+        <circle cx="100" cy="100" r="34" fill="#fff7fb" stroke="#f3d8e5" stroke-width="3"/>
+        <ellipse cx="100" cy="74" rx="17" ry="6" fill="#e8b8cf" transform="rotate(-8 100 74)"/>
+        <ellipse cx="66" cy="64" rx="24" ry="10" fill="#ffffff" opacity="0.4" transform="rotate(-40 66 64)"/>
+        <ellipse cx="87" cy="58" rx="4" ry="5" fill="#5c3a52"/>
+        <ellipse cx="113" cy="58" rx="4" ry="5" fill="#5c3a52"/>
+        <circle cx="88" cy="56" r="1.6" fill="#fff"/>
+        <circle cx="114" cy="56" r="1.6" fill="#fff"/>
+        <path d="M 91 69 Q 100 76 109 69" fill="none" stroke="#5c3a52" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="76" cy="66" rx="7" ry="4" fill="#ff9ebd" opacity="0.55"/>
+        <ellipse cx="124" cy="66" rx="7" ry="4" fill="#ff9ebd" opacity="0.55"/>
+      </svg>`;
+    }
+
+    document.getElementById('success-art').innerHTML = scrunchieSVG('#ff9ebd', '#f76b9d');
+
+    /* ---------- Login logic (demo, client-side only) ---------- */
+
+    const form = document.getElementById('login-form');
+    const errorEl = document.getElementById('error');
+    const loginCard = document.getElementById('login-card');
+    const successCard = document.getElementById('success-card');
+
+    document.getElementById('toggle-pw').addEventListener('click', () => {
+      const pw = document.getElementById('password');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const pw = document.getElementById('password').value;
+
+      if (!email || !pw) {
+        errorEl.textContent = "Oopsie! Don't forget your email and password 💌";
+        return;
+      }
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        errorEl.textContent = 'Hmm, that email looks wonky 🤔';
+        return;
+      }
+      if (pw.length < 4) {
+        errorEl.textContent = 'Password too teeny — at least 4 characters 💅';
+        return;
+      }
+
+      errorEl.textContent = '';
+      loginCard.classList.add('hidden');
+      successCard.classList.remove('hidden');
+      burstHearts();
+    });
+
+    document.getElementById('signup-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      errorEl.textContent = 'Sign up coming soon 🌱';
+    });
+
+    function burstHearts() {
+      const emojis = ['💖', '💕', '✨', '🎀', '🌸'];
+      for (let k = 0; k < 14; k++) {
+        const el = document.createElement('span');
+        el.className = 'burst';
+        el.textContent = emojis[k % emojis.length];
+        el.style.left = (30 + Math.random() * 40) + 'vw';
+        el.style.top = (25 + Math.random() * 30) + 'vh';
+        el.style.animationDelay = (Math.random() * 0.4) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1500);
+      }
+    }
+
+    /* ---------- Floating background hearts ---------- */
+
+    function spawnBgHeart(initial) {
+      const el = document.createElement('span');
+      el.className = 'float-heart';
+      el.textContent = ['💖', '🌸', '✨', '💕', '🎀'][Math.floor(Math.random() * 5)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (14 + Math.random() * 22) + 'px';
+      el.style.animationDuration = (6 + Math.random() * 6) + 's';
+      if (initial) el.style.bottom = (Math.random() * 80) + 'vh';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 13000);
+    }
+
+    for (let i = 0; i < 6; i++) spawnBgHeart(true);
+    setInterval(() => spawnBgHeart(), 1400);
+  </script>
+</body>
+</html>
