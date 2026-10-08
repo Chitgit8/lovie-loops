@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Settings — ScrunchieLand. Profile, saved address, and your orders." />
+  <title>Settings — ScrunchieLand 🎀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff6fa5;
+      --pink-dark: #f04f8c;
+      --pink-light: #ffb6d5;
+      --pink-pale: #ffe3f0;
+      --cream: #fffafc;
+      --text: #5c3a52;
+      --text-soft: #a2718f;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Quicksand', 'Trebuchet MS', sans-serif;
+      background-color: var(--cream);
+      background-image: radial-gradient(#ffe9f4 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--pink-pale);
+    }
+    .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink-dark); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink); }
+    .cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink-pale);
+      border: 2px solid var(--pink-light);
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+    #cart-count { display: inline-block; min-width: 22px; text-align: center; }
+
+    /* ---------- Layout ---------- */
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
+    .title { font-family: 'Pacifico', cursive; color: var(--pink-dark); font-size: 2.2rem; margin-bottom: 8px; text-align: center; }
+    .sub { text-align: center; color: var(--text-soft); margin-bottom: 32px; }
+
+    .panel {
+      background: #fff;
+      border: 2px solid var(--pink-pale);
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .panel h2 { font-size: 1.15rem; color: var(--pink-dark); margin-bottom: 16px; }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    @media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+    label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: 5px; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid var(--pink-light);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: .98rem;
+      background: var(--cream);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+    input:focus { border-color: var(--pink); }
+    .field { margin-bottom: 12px; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(240, 79, 140, .35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn.small { padding: 8px 18px; font-size: .9rem; }
+    .btn.wa { background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 6px 18px rgba(37, 211, 102, .35); }
+    .btn.danger { background: #fff; color: #e05a8c; border: 2px solid #e05a8c; box-shadow: none; }
+    .btn.danger:hover { background: #fdeef4; }
+
+    /* ---------- Orders ---------- */
+    .order {
+      border: 2px dashed var(--pink-light);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .order .top { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+    .order .oid { font-weight: 700; color: var(--pink-dark); }
+    .status { background: #d8f5e3; color: #1e8a4c; font-size: .78rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+    .order .items { font-size: .92rem; color: var(--text-soft); line-height: 1.6; margin-bottom: 8px; }
+    .order .meta { font-size: .88rem; color: var(--text-soft); margin-bottom: 10px; }
+    .order .meta b { color: var(--text); }
+    .no-orders { text-align: center; color: var(--text-soft); line-height: 1.8; }
+    .no-orders a { color: var(--pink-dark); font-weight: 700; }
+
+    /* ---------- Data ---------- */
+    .data-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      background: var(--pink-dark);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+      z-index: 70;
+    }
+    .toast.show { opacity: 1; }
+
+    footer { text-align: center; padding: 32px 24px; color: var(--text-soft); font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">ScrunchieLand 🎀</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="login.html">Login 🔐</a></li>
+      <li><a href="checkout.html">Checkout 🛍️</a></li>
+    </ul>
+    <a class="cart" href="checkout.html" aria-label="Cart">🛍️ <span id="cart-count" data-cart-count>0</span></a>
+  </nav>
+
+  <main class="wrap">
+    <h1 class="title">Settings ⚙️</h1>
+    <p class="sub">Your corner of ScrunchieLand — profile, address, and orders. Saved on this device 💾</p>
+
+    <section class="panel">
+      <h2>👤 Profile</h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="p-name">Name</label>
+          <input type="text" id="p-name" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label for="p-phone">Phone</label>
+          <input type="tel" id="p-phone" placeholder="Phone number" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <label for="p-email">Email</label>
+          <input type="email" id="p-email" placeholder="you@example.com" />
+        </div>
+      </div>
+      <button class="btn" id="save-profile">Save Profile 💾</button>
+    </section>
+
+    <section class="panel">
+      <h2>📍 Saved Address <small style="color: var(--text-soft); font-weight: 500;">· prefills checkout</small></h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="s-name">Full Name</label>
+          <input type="text" id="s-name" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label for="s-phone">Phone</label>
+          <input type="tel" id="s-phone" placeholder="WhatsApp number" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <label for="s-line1">Address</label>
+          <input type="text" id="s-line1" placeholder="House / street" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <input type="text" id="s-line2" placeholder="Apartment, landmark (optional)" />
+        </div>
+        <div class="field">
+          <label for="s-city">City</label>
+          <input type="text" id="s-city" placeholder="City" />
+        </div>
+        <div class="field">
+          <label for="s-state">State</label>
+          <input type="text" id="s-state" placeholder="State" />
+        </div>
+        <div class="field">
+          <label for="s-zip">ZIP / PIN</label>
+          <input type="text" id="s-zip" placeholder="Postal code" />
+        </div>
+      </div>
+      <button class="btn" id="save-address">Save Address 💾</button>
+    </section>
+
+    <section class="panel">
+      <h2>🧾 My Orders</h2>
+      <div id="orders"></div>
+    </section>
+
+    <section class="panel">
+      <h2>🧹 Data</h2>
+      <div class="data-actions">
+        <button class="btn small danger" id="clear-cart">Clear Cart 🛍️</button>
+        <button class="btn small danger" id="clear-orders">Clear Orders 🧾</button>
+        <button class="btn small danger" id="clear-all">Clear Everything 💣</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 ScrunchieLand · Made with 💕 and elastic</footer>
+
+  <script src="js/shared.js"></script>
+  <script>
+    /* ---------- Toast ---------- */
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+    let toastTimer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    /* ---------- Profile ---------- */
+    const profile = SL.store.profile();
+    document.getElementById('p-name').value = profile.name;
+    document.getElementById('p-phone').value = profile.phone;
+    document.getElementById('p-email').value = profile.email;
+
+    document.getElementById('save-profile').addEventListener('click', () => {
+      SL.store.saveProfile({
+        name: document.getElementById('p-name').value.trim(),
+        phone: document.getElementById('p-phone').value.trim(),
+        email: document.getElementById('p-email').value.trim(),
+      });
+      showToast('Profile saved 💕');
+    });
+
+    /* ---------- Address ---------- */
+    const address = SL.store.address();
+    document.getElementById('s-name').value = address.name;
+    document.getElementById('s-phone').value = address.phone;
+    document.getElementById('s-line1').value = address.line1;
+    document.getElementById('s-line2').value = address.line2;
+    document.getElementById('s-city').value = address.city;
+    document.getElementById('s-state').value = address.state;
+    document.getElementById('s-zip').value = address.zip;
+
+    document.getElementById('save-address').addEventListener('click', () => {
+      SL.store.saveAddress({
+        name: document.getElementById('s-name').value.trim(),
+        phone: document.getElementById('s-phone').value.trim(),
+        line1: document.getElementById('s-line1').value.trim(),
+        line2: document.getElementById('s-line2').value.trim(),
+        city: document.getElementById('s-city').value.trim(),
+        state: document.getElementById('s-state').value.trim(),
+        zip: document.getElementById('s-zip').value.trim(),
+      });
+      showToast('Address saved 📍');
+    });
+
+    /* ---------- Orders ---------- */
+    function renderOrders() {
+      const box = document.getElementById('orders');
+      const all = SL.orders.list();
+      if (all.length === 0) {
+        box.innerHTML = '<p class="no-orders">No orders yet 🥺<br><a href="index.html">Go grab some cuties →</a></p>';
+        return;
+      }
+      box.innerHTML = all.map((o) => {
+        const date = new Date(o.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        const items = o.items.map((i) => `${i.emoji} ${SL.esc(i.name)} × ${i.qty}`).join(', ');
+        const wa = SL.CONFIG.whatsapp
+          ? `<a class="btn small wa" href="${SL.whatsappOrderUrl(o)}" target="_blank" rel="noopener">Chat on WhatsApp 💬</a>`
+          : '';
+        return `
+        <div class="order">
+          <div class="top">
+            <span class="oid">${SL.esc(o.id)}</span>
+            <span class="status">Confirmed 💌</span>
+          </div>
+          <div class="items">${items}</div>
+          <div class="meta">${date} · <b>$${o.total.toFixed(2)}</b> · ${SL.esc(o.payment)} · ${SL.esc(o.address.name)}, ${SL.esc(o.address.city)}</div>
+          ${wa}
+        </div>`;
+      }).join('');
+    }
+    renderOrders();
+
+    /* ---------- Data ---------- */
+    document.getElementById('clear-cart').addEventListener('click', () => {
+      if (!confirm('Clear your cart?')) return;
+      SL.cart.clear();
+      showToast('Cart cleared 🧹');
+    });
+    document.getElementById('clear-orders').addEventListener('click', () => {
+      if (!confirm('Delete all your orders? This cannot be undone.')) return;
+      SL.orders.clear();
+      renderOrders();
+      showToast('Orders cleared 🧹');
+    });
+    document.getElementById('clear-all').addEventListener('click', () => {
+      if (!confirm('Delete EVERYTHING (cart, orders, profile, address, chat)? This cannot be undone.')) return;
+      Object.values(SL.CONFIG.keys).forEach((k) => localStorage.removeItem(k));
+      location.reload();
+    });
+  </script>
+</body>
+</html>

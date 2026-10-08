@@ -49,6 +49,20 @@
     .nav-links { display: flex; gap: 24px; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
     .nav-links a:hover { color: var(--pink); }
+    .cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink-pale);
+      border: 2px solid var(--pink-light);
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+    #cart-count { display: inline-block; min-width: 22px; text-align: center; }
 
     /* ---------- Login ---------- */
     .login-wrap {
@@ -177,8 +191,10 @@
   <nav>
     <span class="logo">ScrunchieLand 🎀</span>
     <ul class="nav-links">
-      <li><a href="index.html">← Back to Shop</a></li>
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="settings.html">Settings ⚙️</a></li>
     </ul>
+    <a class="cart" href="checkout.html" aria-label="Cart">🛍️ <span id="cart-count" data-cart-count>0</span></a>
   </nav>
 
   <main class="login-wrap">
@@ -211,6 +227,7 @@
     </div>
   </main>
 
+  <script src="js/shared.js"></script>
   <script>
     /* ---------- Scrunchie SVG art (for success card) ---------- */
 
@@ -302,23 +319,6 @@
         setTimeout(() => el.remove(), 1500);
       }
     }
-
-    /* ---------- Floating background hearts ---------- */
-
-    function spawnBgHeart(initial) {
-      const el = document.createElement('span');
-      el.className = 'float-heart';
-      el.textContent = ['💖', '🌸', '✨', '💕', '🎀'][Math.floor(Math.random() * 5)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.fontSize = (14 + Math.random() * 22) + 'px';
-      el.style.animationDuration = (6 + Math.random() * 6) + 's';
-      if (initial) el.style.bottom = (Math.random() * 80) + 'vh';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 13000);
-    }
-
-    for (let i = 0; i < 6; i++) spawnBgHeart(true);
-    setInterval(() => spawnBgHeart(), 1400);
   </script>
 </body>
 </html>

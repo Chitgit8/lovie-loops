@@ -293,8 +293,9 @@
       <li><a href="#about">About</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="login.html">Login 🔐</a></li>
+      <li><a href="settings.html">Settings ⚙️</a></li>
     </ul>
-    <button class="cart" aria-label="Shopping cart">🛍️ <span id="cart-count">0</span></button>
+    <a class="cart" href="checkout.html" aria-label="Cart">🛍️ <span id="cart-count" data-cart-count>0</span></a>
   </nav>
 
   <header class="hero">
@@ -394,6 +395,7 @@
     <small>© 2026 ScrunchieLand · Made with 💕 and elastic · Demo site</small>
   </footer>
 
+  <script src="js/shared.js"></script>
   <script>
     /* ---------- Scrunchie SVG art ---------- */
 
@@ -441,15 +443,16 @@
     }
 
     const scrunchies = [
-      { name: 'Strawberry Milk', price: '$8', main: '#ff9ebd', dark: '#f76b9d', emoji: '🍓' },
-      { name: 'Lavender Dream',   price: '$9', main: '#c9a7eb', dark: '#b18ad8', emoji: '🦄' },
-      { name: 'Minty Fresh',      price: '$7', main: '#9ee6cf', dark: '#6fd1b0', emoji: '🌿' },
-      { name: 'Peachy Keen',      price: '$8', main: '#ffc9a3', dark: '#f7a872', emoji: '🍑' },
-      { name: 'Bubblegum Pop',    price: '$9', main: '#ff8fc8', dark: '#f75da8', emoji: '🫧' },
-      { name: 'Sky Blue Babe',    price: '$7', main: '#a8d8f7', dark: '#7dbee8', emoji: '☁️' },
-      { name: 'Lemon Drop',       price: '$8', main: '#ffe59a', dark: '#f7cd5e', emoji: '🍋' },
-      { name: 'Rose Garden',      price: '$10', main: '#f79bb8', dark: '#e06f96', emoji: '🌹' },
+      { id: 'strawberry-milk', name: 'Strawberry Milk', price: '$8', priceNum: 8, main: '#ff9ebd', dark: '#f76b9d', emoji: '🍓' },
+      { id: 'lavender-dream',  name: 'Lavender Dream',   price: '$9', priceNum: 9, main: '#c9a7eb', dark: '#b18ad8', emoji: '🦄' },
+      { id: 'minty-fresh',     name: 'Minty Fresh',      price: '$7', priceNum: 7, main: '#9ee6cf', dark: '#6fd1b0', emoji: '🌿' },
+      { id: 'peachy-keen',     name: 'Peachy Keen',      price: '$8', priceNum: 8, main: '#ffc9a3', dark: '#f7a872', emoji: '🍑' },
+      { id: 'bubblegum-pop',   name: 'Bubblegum Pop',    price: '$9', priceNum: 9, main: '#ff8fc8', dark: '#f75da8', emoji: '🫧' },
+      { id: 'sky-blue-babe',   name: 'Sky Blue Babe',    price: '$7', priceNum: 7, main: '#a8d8f7', dark: '#7dbee8', emoji: '☁️' },
+      { id: 'lemon-drop',      name: 'Lemon Drop',       price: '$8', priceNum: 8, main: '#ffe59a', dark: '#f7cd5e', emoji: '🍋' },
+      { id: 'rose-garden',     name: 'Rose Garden',      price: '$10', priceNum: 10, main: '#f79bb8', dark: '#e06f96', emoji: '🌹' },
     ];
+    const ALL_ITEMS = [...scrunchies];
 
     /* ---------- Render ---------- */
 
@@ -464,16 +467,17 @@
         <div class="scrunchie">${scrunchieSVG(s, i)}</div>
         <h3>${s.name} ${s.emoji}</h3>
         <p class="price">${s.price}</p>
-        <button class="add-btn">Add to Cart 💖</button>`;
+        <button class="add-btn" data-id="${s.id}">Add to Cart 💖</button>`;
       shopGrid.appendChild(card);
     });
 
     const deals = [
-      { name: 'Cherry Kiss',   price: '$5', main: '#ff8a9e', dark: '#f0556f', emoji: '🍒' },
-      { name: 'Cotton Candy',  price: '$5', main: '#b8dcff', dark: '#8fbfe8', emoji: '🍬' },
-      { name: 'Pistachio Pop', price: '$5', main: '#bfe8a8', dark: '#94d17c', emoji: '🌱' },
-      { name: 'Lilac Love',    price: '$5', main: '#d5b8f0', dark: '#b98fe0', emoji: '💜' },
+      { id: 'cherry-kiss',   name: 'Cherry Kiss',   price: '$5', priceNum: 5, main: '#ff8a9e', dark: '#f0556f', emoji: '🍒' },
+      { id: 'cotton-candy',  name: 'Cotton Candy',  price: '$5', priceNum: 5, main: '#b8dcff', dark: '#8fbfe8', emoji: '🍬' },
+      { id: 'pistachio-pop', name: 'Pistachio Pop', price: '$5', priceNum: 5, main: '#bfe8a8', dark: '#94d17c', emoji: '🌱' },
+      { id: 'lilac-love',    name: 'Lilac Love',    price: '$5', priceNum: 5, main: '#d5b8f0', dark: '#b98fe0', emoji: '💜' },
     ];
+    ALL_ITEMS.push(...deals);
 
     const dealsGrid = document.getElementById('deals-grid');
     deals.forEach((s, i) => {
@@ -484,7 +488,7 @@
         <div class="scrunchie">${scrunchieSVG(s, i)}</div>
         <h3>${s.name} ${s.emoji}</h3>
         <p class="price">${s.price}</p>
-        <button class="add-btn">Add to Cart 💖</button>`;
+        <button class="add-btn" data-id="${s.id}">Add to Cart 💖</button>`;
       dealsGrid.appendChild(card);
     });
 
@@ -493,10 +497,7 @@
     const track = document.getElementById('marquee-track');
     track.innerHTML = `<span>${marqueeText}</span><span>${marqueeText}</span>`;
 
-    /* ---------- Cart ---------- */
-
-    let cartCount = 0;
-    const cartBadge = document.getElementById('cart-count');
+    /* ---------- Cart (storage + badge live in js/shared.js) ---------- */
 
     function spawnBurst(btn) {
       const rect = btn.getBoundingClientRect();
@@ -514,31 +515,11 @@
 
     document.querySelectorAll('.add-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        cartCount++;
-        cartBadge.textContent = cartCount;
-        cartBadge.classList.remove('bump');
-        void cartBadge.offsetWidth; /* restart animation */
-        cartBadge.classList.add('bump');
+        const item = ALL_ITEMS.find((s) => s.id === btn.dataset.id);
+        SL.cart.add({ id: item.id, name: item.name, emoji: item.emoji, price: item.priceNum });
         spawnBurst(btn);
       });
     });
-
-    /* ---------- Floating background hearts ---------- */
-
-    function spawnBgHeart(initial) {
-      const el = document.createElement('span');
-      el.className = 'float-heart';
-      el.textContent = ['💖', '🌸', '✨', '💕', '🎀'][Math.floor(Math.random() * 5)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.fontSize = (14 + Math.random() * 22) + 'px';
-      el.style.animationDuration = (6 + Math.random() * 6) + 's';
-      if (initial) el.style.bottom = (Math.random() * 80) + 'vh';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 13000);
-    }
-
-    for (let i = 0; i < 6; i++) spawnBgHeart(true);
-    setInterval(() => spawnBgHeart(), 1400);
   </script>
 </body>
 </html>

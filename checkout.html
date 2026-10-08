@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Checkout — ScrunchieLand. Address, payment options, place your order." />
+  <title>Checkout — ScrunchieLand 🎀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff6fa5;
+      --pink-dark: #f04f8c;
+      --pink-light: #ffb6d5;
+      --pink-pale: #ffe3f0;
+      --cream: #fffafc;
+      --text: #5c3a52;
+      --text-soft: #a2718f;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Quicksand', 'Trebuchet MS', sans-serif;
+      background-color: var(--cream);
+      background-image: radial-gradient(#ffe9f4 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--pink-pale);
+    }
+    .logo { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--pink-dark); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--pink); }
+    .cart {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink-pale);
+      border: 2px solid var(--pink-light);
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+    #cart-count { display: inline-block; min-width: 22px; text-align: center; }
+
+    /* ---------- Layout ---------- */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+    .title { font-family: 'Pacifico', cursive; color: var(--pink-dark); font-size: 2.2rem; margin-bottom: 8px; text-align: center; }
+    .sub { text-align: center; color: var(--text-soft); margin-bottom: 32px; }
+    .checkout { display: grid; grid-template-columns: 1fr 330px; gap: 28px; align-items: start; }
+    @media (max-width: 860px) { .checkout { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: #fff;
+      border: 2px solid var(--pink-pale);
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .panel h2 { font-size: 1.15rem; color: var(--pink-dark); margin-bottom: 16px; }
+    .panel h2 small { color: var(--text-soft); font-weight: 500; }
+
+    /* ---------- Cart lines ---------- */
+    .line { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--pink-light); flex-wrap: wrap; }
+    .line:last-child { border-bottom: none; }
+    .line .q { flex: 1; min-width: 140px; font-weight: 600; }
+    .stepper { display: flex; align-items: center; gap: 10px; }
+    .stepper button {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 2px solid var(--pink); background: #fff; color: var(--pink-dark);
+      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .15s;
+    }
+    .stepper button:hover { background: var(--pink); color: #fff; }
+    .line .amt { min-width: 70px; text-align: right; font-weight: 700; color: var(--pink-dark); }
+    .line .rm { border: none; background: none; color: var(--text-soft); cursor: pointer; font-size: 1rem; }
+    .line .rm:hover { color: #e05a8c; }
+    .empty { text-align: center; color: var(--text-soft); line-height: 1.8; padding: 12px 0; }
+    .empty a { color: var(--pink-dark); font-weight: 700; }
+
+    /* ---------- Forms ---------- */
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    @media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+    label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: 5px; }
+    input[type="text"], input[type="tel"], input[type="email"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid var(--pink-light);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: .98rem;
+      background: var(--cream);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+    input:focus { border-color: var(--pink); }
+    .field { margin-bottom: 12px; }
+
+    /* ---------- Payment ---------- */
+    .pay-opt {
+      display: block;
+      border: 2px solid var(--pink-light);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all .2s;
+    }
+    .pay-opt:has(input:checked) { border-color: var(--pink); background: var(--pink-pale); }
+    .pay-opt input { accent-color: var(--pink); margin-right: 8px; }
+    .pay-fields { display: none; padding: 4px 2px 10px; }
+    .pay-fields.show { display: block; }
+    .pay-note { font-size: .85rem; color: var(--text-soft); margin-top: 8px; }
+
+    .err { color: #e05a8c; font-weight: 700; min-height: 1.4em; margin-top: 12px; text-align: center; }
+
+    /* ---------- Summary ---------- */
+    .summary { position: sticky; top: 90px; }
+    .sum-row { display: flex; justify-content: space-between; padding: 8px 0; }
+    .sum-row.total { border-top: 2px dashed var(--pink-light); margin-top: 8px; padding-top: 14px; font-size: 1.15rem; font-weight: 700; color: var(--pink-dark); }
+    .free-hint { font-size: .82rem; color: var(--text-soft); margin-top: 6px; }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 15px 32px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(240, 79, 140, .35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 24px rgba(240, 79, 140, .45); }
+    .btn.wa { background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 6px 18px rgba(37, 211, 102, .35); }
+    .btn.ghost { background: #fff; color: var(--pink-dark); border: 2px solid var(--pink); box-shadow: none; }
+
+    /* ---------- Success ---------- */
+    .success { max-width: 620px; margin: 0 auto; text-align: center; }
+    .success .big { font-size: 4rem; animation: bounce 1.2s ease-in-out infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .success h1 { font-family: 'Pacifico', cursive; color: var(--pink-dark); font-size: 2rem; margin: 8px 0; }
+    .order-id { display: inline-block; background: var(--pink-pale); border: 2px solid var(--pink-light); border-radius: 999px; padding: 6px 20px; font-weight: 700; color: var(--pink-dark); margin: 8px 0 20px; }
+    .order-box { background: #fff; border: 2px solid var(--pink-pale); border-radius: 18px; padding: 18px 20px; text-align: left; margin-bottom: 20px; }
+    .order-box .row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; font-size: .95rem; }
+    .order-box .row b { color: var(--pink-dark); }
+    .success .actions { display: flex; flex-direction: column; gap: 12px; }
+    .wa-note { font-size: .9rem; color: var(--text-soft); }
+
+    footer { text-align: center; padding: 32px 24px; color: var(--text-soft); font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">ScrunchieLand 🎀</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Shop</a></li>
+      <li><a href="login.html">Login 🔐</a></li>
+      <li><a href="settings.html">Settings ⚙️</a></li>
+    </ul>
+    <a class="cart" href="checkout.html" aria-label="Cart">🛍️ <span id="cart-count" data-cart-count>0</span></a>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- Checkout view -->
+    <section id="checkout-view">
+      <h1 class="title">Checkout 🛍️</h1>
+      <p class="sub">Almost yours, cutie! Just a few details.</p>
+
+      <div class="checkout">
+        <div>
+          <div class="panel">
+            <h2>Your Cart <small>· edit quantities</small></h2>
+            <div id="cart-lines"></div>
+          </div>
+
+          <div class="panel">
+            <h2>Delivery Address 📍</h2>
+            <div class="grid2">
+              <div class="field">
+                <label for="a-name">Full Name</label>
+                <input type="text" id="a-name" placeholder="Your name" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="a-phone">Phone</label>
+                <input type="tel" id="a-phone" placeholder="WhatsApp number" autocomplete="tel" />
+              </div>
+              <div class="field" style="grid-column: 1 / -1;">
+                <label for="a-line1">Address</label>
+                <input type="text" id="a-line1" placeholder="House / street" autocomplete="address-line1" />
+              </div>
+              <div class="field" style="grid-column: 1 / -1;">
+                <input type="text" id="a-line2" placeholder="Apartment, landmark (optional)" autocomplete="address-line2" />
+              </div>
+              <div class="field">
+                <label for="a-city">City</label>
+                <input type="text" id="a-city" placeholder="City" autocomplete="address-level2" />
+              </div>
+              <div class="field">
+                <label for="a-state">State</label>
+                <input type="text" id="a-state" placeholder="State" autocomplete="address-level1" />
+              </div>
+              <div class="field">
+                <label for="a-zip">ZIP / PIN</label>
+                <input type="text" id="a-zip" placeholder="Postal code" autocomplete="postal-code" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Payment 💳 <small>· pay after we confirm</small></h2>
+            <label class="pay-opt"><input type="radio" name="pay" value="card" /> Card 💳</label>
+            <div class="pay-fields" data-pay="card">
+              <div class="field"><input type="text" id="card-num" placeholder="Card number" inputmode="numeric" /></div>
+              <div class="grid2">
+                <div class="field"><input type="text" id="card-exp" placeholder="MM/YY" /></div>
+                <div class="field"><input type="text" id="card-cvv" placeholder="CVV" inputmode="numeric" /></div>
+              </div>
+            </div>
+            <label class="pay-opt"><input type="radio" name="pay" value="upi" /> UPI 📱</label>
+            <div class="pay-fields" data-pay="upi">
+              <div class="field"><input type="text" id="upi-id" placeholder="yourname@upi" /></div>
+            </div>
+            <label class="pay-opt"><input type="radio" name="pay" value="cod" /> Cash on Delivery 💵</label>
+            <label class="pay-opt"><input type="radio" name="pay" value="paypal" /> PayPal 🅿️</label>
+            <div class="pay-fields" data-pay="paypal">
+              <div class="field"><input type="email" id="paypal-email" placeholder="PayPal email" /></div>
+            </div>
+            <p class="pay-note">Demo checkout — no online payment is collected. We confirm your order on WhatsApp, then you pay your chosen way 💌</p>
+          </div>
+
+          <button id="place-order" class="btn">Place Order 💖</button>
+          <p class="err" id="err"></p>
+        </div>
+
+        <aside class="summary panel">
+          <h2>Summary 🧾</h2>
+          <div class="sum-row"><span>Subtotal</span><span id="sum-sub">$0.00</span></div>
+          <div class="sum-row"><span>Shipping</span><span id="sum-ship">$0.00</span></div>
+          <div class="sum-row total"><span>Total</span><span id="sum-total">$0.00</span></div>
+          <p class="free-hint" id="free-hint">Free shipping on orders over $25 🚚</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Success view -->
+    <section class="success" id="success-view" hidden>
+      <div class="big">🎉</div>
+      <h1>Order Placed, Cutie!</h1>
+      <p class="sub">We got it! Send us the order on WhatsApp to confirm 💕</p>
+      <span class="order-id" id="order-id"></span>
+      <div class="order-box" id="order-box"></div>
+      <div class="actions">
+        <a class="btn wa" id="wa-btn" href="#" target="_blank" rel="noopener">Send Order on WhatsApp 💬</a>
+        <p class="wa-note" id="wa-note" hidden>WhatsApp number coming soon — your order is saved in Settings → My Orders 💌</p>
+        <a class="btn ghost" href="settings.html">Track in My Orders 🧾</a>
+        <a class="btn ghost" href="index.html">Continue Shopping 🛍️</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 ScrunchieLand · Made with 💕 and elastic</footer>
+
+  <script src="js/shared.js"></script>
+  <script>
+    /* ---------- Cart rendering ---------- */
+
+    const cartLines = document.getElementById('cart-lines');
+    const errEl = document.getElementById('err');
+
+    function renderCart() {
+      const items = SL.cart.list();
+      if (items.length === 0) {
+        cartLines.innerHTML = '<p class="empty">Your cart is empty 🥺<br><a href="index.html">Grab some cuties →</a></p>';
+      } else {
+        cartLines.innerHTML = items.map((i) => `
+          <div class="line">
+            <span class="q">${i.emoji} ${SL.esc(i.name)}</span>
+            <span class="stepper">
+              <button data-act="dec" data-id="${SL.esc(i.id)}" aria-label="Decrease">−</button>
+              <span>${i.qty}</span>
+              <button data-act="inc" data-id="${SL.esc(i.id)}" aria-label="Increase">＋</button>
+            </span>
+            <span class="amt">$${(i.qty * i.price).toFixed(2)}</span>
+            <button class="rm" data-act="rm" data-id="${SL.esc(i.id)}" aria-label="Remove">✕</button>
+          </div>`).join('');
+      }
+      updateSummary();
+    }
+
+    cartLines.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const item = SL.cart.list().find((i) => i.id === btn.dataset.id);
+      if (!item) return;
+      if (btn.dataset.act === 'inc') SL.cart.setQty(item.id, item.qty + 1);
+      if (btn.dataset.act === 'dec') SL.cart.setQty(item.id, item.qty - 1);
+      if (btn.dataset.act === 'rm') SL.cart.setQty(item.id, 0);
+      renderCart();
+    });
+
+    function updateSummary() {
+      const t = SL.orderTotals();
+      document.getElementById('sum-sub').textContent = '$' + t.sub.toFixed(2);
+      document.getElementById('sum-ship').textContent = t.ship === 0 ? 'FREE 💖' : '$' + t.ship.toFixed(2);
+      document.getElementById('sum-total').textContent = '$' + t.total.toFixed(2);
+      document.getElementById('free-hint').textContent =
+        t.sub >= SL.CONFIG.shippingFreeOver
+          ? 'Yay! You unlocked free shipping 🎉'
+          : 'Free shipping on orders over $' + SL.CONFIG.shippingFreeOver + ' 🚚';
+    }
+
+    /* ---------- Address prefill from Settings ---------- */
+
+    const saved = SL.store.address();
+    if (saved.name) {
+      document.getElementById('a-name').value = saved.name;
+      document.getElementById('a-phone').value = saved.phone;
+      document.getElementById('a-line1').value = saved.line1;
+      document.getElementById('a-line2').value = saved.line2;
+      document.getElementById('a-city').value = saved.city;
+      document.getElementById('a-state').value = saved.state;
+      document.getElementById('a-zip').value = saved.zip;
+    }
+
+    /* ---------- Payment method toggle ---------- */
+
+    document.querySelectorAll('input[name="pay"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.pay-fields').forEach((f) => f.classList.remove('show'));
+        const box = document.querySelector(`.pay-fields[data-pay="${radio.value}"]`);
+        if (box) box.classList.add('show');
+      });
+    });
+
+    /* ---------- Place order ---------- */
+
+    const PAY_LABELS = { card: 'Card 💳', upi: 'UPI 📱', cod: 'Cash on Delivery 💵', paypal: 'PayPal 🅿️' };
+
+    function setErr(msg) { errEl.textContent = msg; }
+
+    document.getElementById('place-order').addEventListener('click', () => {
+      setErr('');
+      const items = SL.cart.list();
+      if (items.length === 0) return setErr('Your cart is empty 🥺');
+
+      const addr = {
+        name: document.getElementById('a-name').value.trim(),
+        phone: document.getElementById('a-phone').value.trim(),
+        line1: document.getElementById('a-line1').value.trim(),
+        line2: document.getElementById('a-line2').value.trim(),
+        city: document.getElementById('a-city').value.trim(),
+        state: document.getElementById('a-state').value.trim(),
+        zip: document.getElementById('a-zip').value.trim(),
+      };
+      if (!addr.name) return setErr('We need your name, cutie 💕');
+      if (!addr.phone) return setErr('Add a phone number 📱');
+      if (!addr.line1 || !addr.city) return setErr('Add a delivery address 📍');
+
+      const pay = document.querySelector('input[name="pay"]:checked');
+      if (!pay) return setErr('Pick a payment method 💳');
+
+      if (pay.value === 'card') {
+        const num = document.getElementById('card-num').value.replace(/\D/g, '');
+        if (num.length < 16) return setErr('Card number looks too short — 16 digits 💳');
+      }
+      if (pay.value === 'upi' && !document.getElementById('upi-id').value.includes('@')) {
+        return setErr('UPI ID needs an @ — like name@upi 📱');
+      }
+
+      const t = SL.orderTotals();
+      const order = {
+        id: SL.newOrderId(),
+        date: new Date().toISOString(),
+        items: items.map((i) => ({ name: i.name, emoji: i.emoji, qty: i.qty, price: i.price })),
+        address: addr,
+        payment: PAY_LABELS[pay.value],
+        sub: t.sub,
+        ship: t.ship,
+        total: t.total,
+      };
+
+      SL.orders.add(order);
+      SL.store.saveAddress(addr);
+      SL.cart.clear();
+
+      showSuccess(order);
+    });
+
+    function showSuccess(order) {
+      document.getElementById('checkout-view').hidden = true;
+      document.getElementById('success-view').hidden = false;
+
+      document.getElementById('order-id').textContent = 'Order ID: ' + order.id;
+
+      const rows = order.items.map((i) =>
+        `<div class="row"><span>${i.emoji} ${SL.esc(i.name)} × ${i.qty}</span><b>$${(i.qty * i.price).toFixed(2)}</b></div>`
+      ).join('');
+      document.getElementById('order-box').innerHTML = `
+        ${rows}
+        <div class="row"><span>Shipping</span><b>${order.ship === 0 ? 'FREE 💖' : '$' + order.ship.toFixed(2)}</b></div>
+        <div class="row"><span>Total</span><b>$${order.total.toFixed(2)}</b></div>
+        <div class="row"><span>Payment</span><span>${SL.esc(order.payment)}</span></div>
+        <div class="row"><span>Deliver to</span><span>${SL.esc(order.address.name)}, ${SL.esc(order.address.line1)}, ${SL.esc(order.address.city)} ${SL.esc(order.address.zip)}</span></div>`;
+
+      const waBtn = document.getElementById('wa-btn');
+      if (SL.CONFIG.whatsapp) {
+        waBtn.href = SL.whatsappOrderUrl(order);
+      } else {
+        waBtn.hidden = true;
+        document.getElementById('wa-note').hidden = false;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
